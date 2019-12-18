@@ -18,10 +18,12 @@ jobs:
         shopt -s extglob
         awk -f .github/workflows/toc.awk catalog/!(README).md > catalog/README.md
         if ! git diff --no-ext-diff --quiet --exit-code; then
-          git add .
-          git config --local user.email "${GITHUB_ACTOR}"
-          git config --local user.name "${GITHUB_ACTOR}@users.noreply.github.com"
+          git add catalog/README.md
+          git config --local user.email "action@github.com"
+          git config --local user.name "Github Action"
           git commit -a -m "update TOC"
-          git push -u origin HEAD
+          git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:master
         fi
       shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
