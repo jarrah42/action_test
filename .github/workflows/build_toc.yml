@@ -1,4 +1,4 @@
-name: CI
+name: Build TOC
 
 on:
   push:
@@ -13,11 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
+    - name: Build TOC
       run: |
         shopt -s extglob
-        echo Add other actions to build,
-        echo test, and deploy your project.
         awk -f .github/workflows/toc.awk catalog/!(README).md
+      shell: bash
