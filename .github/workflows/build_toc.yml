@@ -4,7 +4,7 @@ on:
   push:
     paths:
     - 'catalog/*'
-    - 'catalog/README.md'
+    - '!catalog/README.md'
 
 jobs:
   build:
